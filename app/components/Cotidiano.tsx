@@ -1,9 +1,13 @@
 import CatalogoItem from './CatalogoItem';
 
-function Ollas() {
-    const tipo = 'pieza';
-    const nombrePieza = 'Ollas';
+function Cotidiano() {
+    const tipo = 'uso';
+    const nombrePieza = 'Cotidiano';
     const imagesBarra = [
+        '/catalogo/cuencos/barra/imagen1.png',
+        '/catalogo/cuencos/barra/imagen2.png',
+        '/catalogo/cuencos/barra/imagen4.png',
+        '/catalogo/cuencos/barra/imagen5.png',
         '/catalogo/ollas/barra/imagen1.png',
         '/catalogo/ollas/barra/imagen2.png',
         '/catalogo/ollas/barra/imagen3.png',
@@ -11,6 +15,10 @@ function Ollas() {
     ];
 
     const imagesPieza = [
+        '/catalogo/cuencos/cuenco1.png',
+        '/catalogo/cuencos/cuenco2.png',
+        '/catalogo/cuencos/cuenco4.png',
+        '/catalogo/cuencos/cuenco5.png',
         '/catalogo/ollas/olla1.png',
         '/catalogo/ollas/olla2.png',
         '/catalogo/ollas/olla3.png',
@@ -20,4 +28,4 @@ function Ollas() {
     return <CatalogoItem tipo={tipo} nombrePieza={nombrePieza} imagesBarra={imagesBarra} imagesPieza={imagesPieza} />;
 }
 
-export default Ollas;
+export default Cotidiano;

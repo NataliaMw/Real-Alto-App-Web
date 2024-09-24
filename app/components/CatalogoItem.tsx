@@ -1,13 +1,16 @@
 "use client";
 import React, { useState } from 'react';
+import Link from 'next/link';
+
 
 interface CatalogoItemProps {
+    tipo: string;
     nombrePieza: string;
     imagesBarra: string[];
     imagesPieza: string[];
 }
 
-function CatalogoItem({ nombrePieza, imagesBarra, imagesPieza }: CatalogoItemProps) {
+function CatalogoItem({ tipo, nombrePieza, imagesBarra, imagesPieza }: CatalogoItemProps) {
     const [selectedImage, setSelectedImage] = useState(0);
 
     // Función para la flecha izquierda
@@ -24,32 +27,48 @@ function CatalogoItem({ nombrePieza, imagesBarra, imagesPieza }: CatalogoItemPro
     let prevPieza = '';
     let nextPieza = '';
 
-    if (nombrePieza === 'Cuencos') {
-        prevPieza = 'Ollas';
-        nextPieza = 'Figurinas';
-    } else if (nombrePieza === 'Ollas') {
-        prevPieza = 'Figurinas';
-        nextPieza = 'Cuencos';
-    } else if (nombrePieza === 'Figurinas') {
-        prevPieza = 'Cuencos';
-        nextPieza = 'Ollas';
+    if (tipo === 'pieza') {
+        if (nombrePieza === 'Cuencos') {
+            prevPieza = 'Ollas';
+            nextPieza = 'Figurinas';
+        } else if (nombrePieza === 'Ollas') {
+            prevPieza = 'Figurinas';
+            nextPieza = 'Cuencos';
+        } else if (nombrePieza === 'Figurinas') {
+            prevPieza = 'Cuencos';
+            nextPieza = 'Ollas';
+        }
+    } else if (tipo === 'uso') {
+        if (nombrePieza === 'Ritual') {
+            prevPieza = 'Ritual';
+            nextPieza = 'Cotidiano';
+        } else if (nombrePieza === 'Cotidiano') {
+            prevPieza = 'Cotidiano';
+            nextPieza = 'Ritual';
+        }
     }
+
+    const prevLink = tipo === 'pieza' ? `/catalogo/pieza/${prevPieza.toLowerCase()}` : `/catalogo/uso/${prevPieza.toLowerCase()}`;
+    const nextLink = tipo === 'pieza' ? `/catalogo/pieza/${nextPieza.toLowerCase()}` : `/catalogo/uso/${nextPieza.toLowerCase()}`;
+
 
 
     return (
         <div className='flex flex-col w-[100vw] my-20 space-y-10'>
             <div className='flex items-center px-10 md:px-40'>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 md:h-10 md:w-10 text-orange-500 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-                <h2 className='font-erode text-black text-lg sm:text-2xl md:text-4xl mr-2'>Por tipo de pieza</h2>
+                <Link href="/categorias">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 md:h-10 md:w-10 text-orange-500 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </Link>
+                <h2 className='font-erode text-black text-lg sm:text-2xl md:text-4xl mr-2'>Por tipo de {tipo}</h2>
                 <span className='font-erode text-lg sm:text-2xl md:text-4xl text-black font-semibold'>{nombrePieza}</span>
             </div>
 
@@ -105,34 +124,38 @@ function CatalogoItem({ nombrePieza, imagesBarra, imagesPieza }: CatalogoItemPro
 
             <div className="flex justify-between items-center w-full px-10 py-5">
                 {/* Flecha Izquierda con texto */}
-                <div className="flex items-center cursor-pointer">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-orange-500 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    <span className="font-erode text-xl sm:text-4xl text-black">{prevPieza}</span>
-                </div>
+                <Link href={prevLink}>
+                    <div className="flex items-center cursor-pointer">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6 text-orange-500 mr-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span className="font-erode text-xl sm:text-4xl text-black">{prevPieza}</span>
+                    </div>
+                </Link>
 
                 {/* Flecha Derecha con texto */}
-                <div className="flex items-center cursor-pointer">
-                    <span className="font-erode text-xl sm:text-4xl text-black">{nextPieza}</span>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-orange-500 ml-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </div>
+                <Link href={nextLink}>
+                    <div className="flex items-center cursor-pointer">
+                        <span className="font-erode text-xl sm:text-4xl text-black">{nextPieza}</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6 text-orange-500 ml-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </Link>
             </div>
         </div>
     );
@@ -143,7 +166,7 @@ function InfoBlock() {
         <>
             <div className='relative flex w-1/3 justify-center'>
                 <div className='absolute bg-vector3 rounded-full h-16 w-16 -top-8 p-3'>
-                    <img src='catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
+                    <img src='/catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
                 </div>
                 <div className='flex flex-col h-full w-3/4 bg-black rounded-lg p-10 items-center space-y-2'>
                     <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>PROCEDENCIA</span>
@@ -152,7 +175,7 @@ function InfoBlock() {
             </div>
             <div className='relative flex w-1/3 justify-center'>
                 <div className='absolute bg-vector3 rounded-full h-16 w-16 -top-8 p-3'>
-                    <img src='catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
+                    <img src='/catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
                 </div>
                 <div className='flex flex-col h-full w-3/4 bg-black rounded-lg p-10 items-center space-y-2'>
                     <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>PROCEDENCIA</span>
@@ -161,7 +184,7 @@ function InfoBlock() {
             </div>
             <div className='relative flex w-1/3 justify-center'>
                 <div className='absolute bg-vector3 rounded-full h-16 w-16 -top-8 p-3'>
-                    <img src='catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
+                    <img src='/catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
                 </div>
                 <div className='flex flex-col h-full w-3/4 bg-black rounded-lg p-10 items-center space-y-2'>
                     <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>PROCEDENCIA</span>
