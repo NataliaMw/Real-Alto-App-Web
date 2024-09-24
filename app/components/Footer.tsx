@@ -15,13 +15,13 @@ const Footer = () => {
                         <div>
                             <ul className="flex flex-col justify-around text-white text-2xl md:text-lg font-medium break-words h-full">
                                 <li className="mb-4">
-                                    <a href="/" className="hover:underline">EL MUSEO</a>
+                                    <a href="/historia" className="hover:underline">EL MUSEO</a>
                                 </li>
                                 <li className="mb-4">
-                                    <a href="/" className="hover:underline">CATÁLOGO</a>
+                                    <a href="/categorias" className="hover:underline">CATÁLOGO</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="hover:underline">APLICACIÓN MÓVIL</a>
+                                    <a href="/aplicacion" className="hover:underline">APLICACIÓN MÓVIL</a>
                                 </li>
                             </ul>
                         </div>
