@@ -175,19 +175,19 @@ function InfoBlock() {
             </div>
             <div className='relative flex w-1/3 justify-center'>
                 <div className='absolute bg-vector3 rounded-full h-16 w-16 -top-8 p-3'>
-                    <img src='/catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
+                    <img src='/catalogo/simbolos/uso.png' alt='procedencia' className='w-full h-full ' />
                 </div>
                 <div className='flex flex-col h-full w-3/4 bg-black rounded-lg p-10 items-center space-y-2'>
-                    <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>PROCEDENCIA</span>
+                    <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>USO</span>
                     <span className='font-erode text-white text-xs sm:text-base'>Texto a llenar</span>
                 </div>
             </div>
             <div className='relative flex w-1/3 justify-center'>
                 <div className='absolute bg-vector3 rounded-full h-16 w-16 -top-8 p-3'>
-                    <img src='/catalogo/simbolos/procedencia.png' alt='procedencia' className='w-full h-full ' />
+                    <img src='/catalogo/simbolos/medidas.png' alt='procedencia' className='w-full h-full ' />
                 </div>
                 <div className='flex flex-col h-full w-3/4 bg-black rounded-lg p-10 items-center space-y-2'>
-                    <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>PROCEDENCIA</span>
+                    <span className='font-erode text-white font-semibold text-xs sm:text-lg md:text-xs lg:text-lg'>MEDIDAS</span>
                     <span className='font-erode text-white text-xs sm:text-base'>Texto a llenar</span>
                 </div>
             </div>

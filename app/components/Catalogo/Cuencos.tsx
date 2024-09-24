@@ -10,6 +10,7 @@ function Cuencos() {
         '/catalogo/cuencos/barra/imagen4.png',
         '/catalogo/cuencos/barra/imagen5.png',
         '/catalogo/cuencos/barra/imagen6.png',
+        
     ];
 
     const imagesPieza = [

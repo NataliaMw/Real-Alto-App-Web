@@ -24,7 +24,7 @@ function CronologiaFase({ faseId }: CronologiaFaseProps) {
                 <Link href="/categorias">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 md:h-10 md:w-10 text-orange-500 mr-2"
+                        className="h-6 w-6 md:h-10 md:w-10 text-orange-500 mr-2 transform transition-transform duration-300 hover:scale-110"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
