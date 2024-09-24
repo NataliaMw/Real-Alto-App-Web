@@ -20,7 +20,7 @@ function Uso() {
                 <div className='flex justify-around md:justify-end gap-2 md:gap-4 items-center w-full md:mr-20'>
                     {tipoDeUso.map((uso, index) => (
                         <Link key={index} href={`/catalogo/uso/${uso}`}>
-                            <div key={index} className='bg-black rounded-lg w-[40vw] md:w-[15vw] md:h-[20vh] space-y-2 flex flex-col justify-between overflow-hidden'>
+                            <div key={index} className='bg-black rounded-lg w-[40vw] md:w-[15vw] md:h-[20vh] space-y-2 flex flex-col justify-between overflow-hidden transform transition-transform duration-300 hover:scale-110'>
                                 <h3 className='font-erode text-white text-lg font-semibold text-center uppercase'>{uso}</h3>
                                 <img src={`catalogo/${uso}.png`} alt={uso} className="w-full h-auto object-cover" />
                             </div>

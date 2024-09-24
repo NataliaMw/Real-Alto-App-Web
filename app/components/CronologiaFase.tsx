@@ -39,7 +39,7 @@ function CronologiaFase({ faseId }: CronologiaFaseProps) {
 
             <div className="flex flex-col w-9/12 md:w-[48vw] space-y-4 ">
                 {bars.map((bar) => (
-                    <div key={bar.id} className={`${bar.color} flex flex-col`}>
+                    <div key={bar.id} className={`${bar.color} flex flex-col transform transition-transform duration-300 hover:scale-110`}>
                         {faseId === bar.id && (
                             bar.images && bar.images.length > 0 ? (
                                 <div className="flex flex-col justify-center items-center">

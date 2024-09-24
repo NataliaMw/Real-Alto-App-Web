@@ -23,7 +23,7 @@ function Pieza() {
                 <div className='flex w-full justify-around md:justify-normal gap-2 md:gap-4 items-center md:ml-20'>
                     {piezas.map((nombrePieza, index) => (
                         <Link key={index} href={`/catalogo/pieza/${nombrePieza}`}>
-                            <div className='cursor-pointer bg-black rounded-lg w-[25vw] md:w-[12vw] md:h-[20vh] space-y-4 flex flex-col justify-between overflow-hidden'>
+                            <div className='cursor-pointer bg-black rounded-lg w-[25vw] md:w-[12vw] md:h-[20vh] space-y-4 flex flex-col justify-between overflow-hidden transform transition-transform duration-300 hover:scale-110'>
                                 <h3 className='font-erode text-white text-sm lg:text-lg font-semibold text-center uppercase'>{nombrePieza}</h3>
                                 <img src={`catalogo/${nombrePieza}.png`} alt={nombrePieza} className="w-full h-auto object-cover" />
                             </div>

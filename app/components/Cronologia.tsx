@@ -26,7 +26,7 @@ function Cronologia() {
             <div className="flex flex-col w-9/12 md:w-[48vw] space-y-4 ">
                 {bars.map((bar) => (
                     <Link key={bar.id} href={`/catalogo/cronologia/fase${bar.id}`} passHref>
-                        <div key={bar.id} className={`${bar.color} grid grid-cols-7 h-16`}>
+                        <div key={bar.id} className={`${bar.color} grid grid-cols-7 h-16 transform transition-transform duration-300 hover:scale-110`}>
                             <div className={`flex justify-center items-center text-6xl text-white font-bold font-erode ${bar.order}`}>
                                 {bar.id}
                             </div>

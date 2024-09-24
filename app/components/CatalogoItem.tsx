@@ -59,7 +59,7 @@ function CatalogoItem({ tipo, nombrePieza, imagesBarra, imagesPieza }: CatalogoI
                 <Link href="/categorias">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 md:h-10 md:w-10 text-orange-500 mr-2"
+                        className="h-6 w-6 md:h-10 md:w-10 text-orange-500 mr-2 transform transition-transform duration-300 hover:scale-110"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -75,7 +75,7 @@ function CatalogoItem({ tipo, nombrePieza, imagesBarra, imagesPieza }: CatalogoI
             {/* Vista de una sola imagen para pantallas grandes */}
             <div className='hidden md:flex items-center'>
                 {/* Flecha Izquierda */}
-                <button onClick={handlePrevImage} className='absolute left-20 p-2 bg-gray-300 rounded-full hidden md:block'>
+                <button onClick={handlePrevImage} className='absolute left-20 p-2 bg-gray-300 rounded-full hidden md:block transform transition-transform duration-300 hover:scale-125'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                     </svg>
@@ -90,7 +90,7 @@ function CatalogoItem({ tipo, nombrePieza, imagesBarra, imagesPieza }: CatalogoI
                 </div>
 
                 {/* Flecha Derecha */}
-                <button onClick={handleNextImage} className='absolute right-20 p-2 bg-gray-300 rounded-full hidden md:block'>
+                <button onClick={handleNextImage} className='absolute right-20 p-2 bg-gray-300 rounded-full hidden md:block transform transition-transform duration-300 hover:scale-125'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                     </svg>
@@ -125,7 +125,7 @@ function CatalogoItem({ tipo, nombrePieza, imagesBarra, imagesPieza }: CatalogoI
             <div className="flex justify-between items-center w-full px-10 py-5">
                 {/* Flecha Izquierda con texto */}
                 <Link href={prevLink}>
-                    <div className="flex items-center cursor-pointer">
+                    <div className="flex items-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110 hover:text-orange-600">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6 text-orange-500 mr-2"
@@ -142,7 +142,7 @@ function CatalogoItem({ tipo, nombrePieza, imagesBarra, imagesPieza }: CatalogoI
 
                 {/* Flecha Derecha con texto */}
                 <Link href={nextLink}>
-                    <div className="flex items-center cursor-pointer">
+                    <div className="flex items-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110 hover:text-orange-600">
                         <span className="font-erode text-xl sm:text-4xl text-black">{nextPieza}</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

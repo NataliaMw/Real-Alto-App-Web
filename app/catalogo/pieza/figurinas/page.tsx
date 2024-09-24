@@ -1,4 +1,4 @@
-import Figurinas from "../../../components/Figurinas";
+import Figurinas from "../../../components/Catalogo/Figurinas";
 
 export default function CatalogoPage() {
   return (

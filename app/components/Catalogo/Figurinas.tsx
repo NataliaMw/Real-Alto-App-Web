@@ -1,4 +1,4 @@
-import CatalogoItem from './CatalogoItem';
+import CatalogoItem from '../CatalogoItem';
 
 function Figurinas() {
     const tipo = 'pieza';

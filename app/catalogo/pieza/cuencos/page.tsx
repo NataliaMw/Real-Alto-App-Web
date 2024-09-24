@@ -1,4 +1,4 @@
-import Cuencos from "../../../components/Cuencos";
+import Cuencos from "../../../components/Catalogo/Cuencos";
 
 export default function CatalogoPage() {
   return (

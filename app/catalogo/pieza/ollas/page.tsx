@@ -1,5 +1,5 @@
 
-import Ollas from "../../../components/Ollas";
+import Ollas from "../../../components/Catalogo/Ollas";
 
 export default function CatalogoPage() {
   return (

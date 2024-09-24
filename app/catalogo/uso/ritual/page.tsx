@@ -1,4 +1,4 @@
-import Ritual from "../../../components/Ritual";
+import Ritual from "../../../components/Catalogo/Ritual";
 
 export default function CatalogoPage() {
   return (

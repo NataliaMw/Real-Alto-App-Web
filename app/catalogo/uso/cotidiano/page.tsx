@@ -1,4 +1,4 @@
-import Cotidiano from "../../../components/Cotidiano";
+import Cotidiano from "../../../components/Catalogo/Cotidiano";
 
 export default function CatalogoPage() {
   return (
