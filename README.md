@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Instrucciones para descargar y ejecutar el proyecto
 
-## Getting Started
+### Requisitos previos:
 
-First, run the development server:
+Este proyecto requiere un sistema operativo compatible con Node.js para ejecutarse. Los sistemas operativos compatibles son:
+- **macOS Sonoma o versiones posteriores**
+- **Windows 11**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Para ejecutar este proyecto en tu computadora local, es necesario que tengas instalado **Node.js** y **npm** (Node Package Manager).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Para macOS:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Instalar Node.js con nvm (Node Version Manager)**:
+    - Ve al sitio oficial de Node.js: [Descargar Node.js](https://nodejs.org/en/download/package-manager) y selecciona la versión 20.17.0.
+   - Abre la Terminal.
+   - Descarga e instala `nvm` (gestor de versiones de Node.js) ejecutando este comando:
+     ```bash
+     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+     ```
+   - Cierra y vuelve a abrir la Terminal, o bien ejecuta el siguiente comando para recargar el perfil:
+     ```bash
+     source ~/.bashrc
+     ```
+   - Instala la versión recomendada de Node.js:
+     ```bash
+     nvm install 20
+     ```
+   - Verifica la instalación:
+     ```bash
+     node -v
+     npm -v
+     ```
+     Deberías ver algo similar a:
+     ```
+     v20.17.0
+     10.8.2
+     ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Para Windows 11:
 
-## Learn More
+1. **Instalar Node.js con fnm (Fast Node Manager)**:
+    - Ve al sitio oficial de Node.js: [Descargar Node.js](https://nodejs.org/en/download/package-manager) y selecciona la versión 20.17.0.
+   - Abre PowerShell con privilegios de administrador.
+   - Ejecuta el siguiente comando para instalar `fnm` (gestor de versiones de Node.js):
+     ```bash
+     winget install Schniz.fnm
+     ```
+   - Configura el entorno de `fnm` con:
+     ```bash
+     fnm env --use-on-cd | Out-String | Invoke-Expression
+     ```
+   - Instala la versión recomendada de Node.js:
+     ```bash
+     fnm use --install-if-missing 20
+     ```
+   - Verifica la instalación:
+     ```bash
+     node -v
+     npm -v
+     ```
+     Deberías ver algo como:
+     ```
+     v20.17.0
+     10.8.2
+     ```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Descargar y ejecutar el proyecto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Descargar el proyecto**:
+   - Ve al repositorio del proyecto en GitHub: [Real-Alto-App-Web](https://github.com/damm2001/Real-Alto-App-Web).
+   - En la página principal del repositorio, busca el botón que dice "Code" en verde.
+   - Haz clic en el botón "Code". Se desplegará un menú con varias opciones.
+   - Selecciona la opción **Download ZIP**. Esto descargará el proyecto como un archivo comprimido en formato ZIP en tu computadora.
+   - Una vez descargado el archivo ZIP, ve a la carpeta donde se guardó y descomprímelo. Si estás en Windows, puedes hacer clic derecho sobre el archivo y seleccionar "Extraer todo". En macOS, simplemente haz doble clic sobre el archivo ZIP para descomprimirlo.
 
-## Deploy on Vercel
+2. **Instalar dependencias**:
+   - Abre una terminal (en Windows puedes usar PowerShell o cmd, y en macOS puedes usar la Terminal).
+   - Navega a la carpeta del proyecto que acabas de descomprimir usando el comando `cd` (cambia de directorio). Por ejemplo:
+     ```bash
+     cd /ruta/del/proyecto
+     ```
+   - Una vez que estés dentro de la carpeta del proyecto, ejecuta el siguiente comando para instalar las dependencias necesarias:
+     ```bash
+     npm install
+     ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Ejecutar el servidor de desarrollo**:
+   - Para iniciar el servidor en modo de desarrollo, ejecuta el siguiente comando:
+     ```bash
+     npm run dev
+     ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. **Abrir la aplicación**:
+   - Una vez iniciado el servidor, abre tu navegador y accede a:
+     ```
+     http://localhost:3000
+     ```
+   - Podrás ver la aplicación ejecutándose en tu entorno local.
+
+## Aprende más sobre Next.js
+
+Para obtener más información sobre Next.js, puedes consultar los siguientes recursos:
+
+- [Documentación de Next.js](https://nextjs.org/docs) - Aprende sobre las características y API de Next.js.
+- [Tutorial interactivo de Next.js](https://nextjs.org/learn) - Aprende Next.js de manera interactiva.
+
+También puedes visitar el [repositorio de GitHub de Next.js](https://github.com/vercel/next.js/), donde se agradecen tus comentarios y contribuciones.
+
