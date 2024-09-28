@@ -3,7 +3,7 @@ const process = require('process');
 require('dotenv').config();
 
 const axiosInstance = axios.create({
-	baseURL: process.env.API_URL || 'http://localhost:5000',
+	baseURL: process.env.API_URL || 'http://localhost:5000/api/',
 	headers: {
 		'Content-Type': 'application/json',
 	},
@@ -22,9 +22,11 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
 	(response: any) => {
+		if (response && response.data) return response.data;
 		return response;
 	},
 	(error: any) => {
+		console.error(error);
 		return Promise.reject(error);
 	}
 );
