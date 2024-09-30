@@ -3,8 +3,8 @@
 import piezasApi from '@/app/libs/piezasApi';
 import procedenciasApi from '@/app/libs/procedenciasApi';
 import { useState, useEffect } from 'react';
-import CatalogoItem from '@/app/components/CatalogoItem';
 import CronologiaFase from '@/app/components/CronologiaFase';
+import Swal from 'sweetalert2';
 
 interface IParams {
 	origen: string;
@@ -31,6 +31,13 @@ const CatalogoProcedenciaPieza = ({ params }: { params: IParams }) => {
 			setProcedenciasPieza(response);
 			setProcedenciaInfo(piezaProcedencias);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar las procedencias',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};
@@ -51,6 +58,13 @@ const CatalogoProcedenciaPieza = ({ params }: { params: IParams }) => {
 			setPiezas(response);
 			setLoading(false);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar las piezas',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setLoading(false);
 			setError(error.message);
 		}

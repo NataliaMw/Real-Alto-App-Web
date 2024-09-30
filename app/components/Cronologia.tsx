@@ -13,7 +13,6 @@ function Cronologia({ data }: CronologiaProps) {
 
 	const selectedOrigen = data[0];
 	const lastOrigen = data[data.length - 1];
-	console.log(data);
 
 	return (
 		<div className='flex flex-col w-full p-6 items-center'>
@@ -30,7 +29,7 @@ function Cronologia({ data }: CronologiaProps) {
 			</div>
 
 			<div className='flex flex-col w-9/12 md:w-[48vw] space-y-4 '>
-				{data?.map((origen, index) => (
+				{data.map((origen, index) => (
 					<Link key={index} href={getLink(index)}>
 						<div
 							className={`bg-vector${origen?.nivel_cronologico} grid grid-cols-7 h-16 transform transition-transform duration-300 hover:scale-110`}

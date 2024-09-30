@@ -8,6 +8,7 @@ import tiposApi from '@/app/libs/tiposApi';
 import usosApi from '@/app/libs/usosApi';
 import procedenciasApi from '@/app/libs/procedenciasApi';
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 export default function CatalogoPage() {
 	const [tipos, setTipos] = useState([]);
@@ -21,6 +22,13 @@ export default function CatalogoPage() {
 			const response = await tiposApi.getAllTipos({});
 			setTipos(response);
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Carga de imagen fallida',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};
@@ -30,6 +38,13 @@ export default function CatalogoPage() {
 			const response = await usosApi.getAllUsos({});
 			setUsos(response);
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Carga de imagen fallida',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};
@@ -41,6 +56,13 @@ export default function CatalogoPage() {
 			});
 			setProcedencias(response);
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Carga de imagen fallida',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};

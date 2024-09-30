@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import tiposApi from '@/app/libs/tiposApi';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
+
 export default function Tipo() {
 	const router = useRouter();
 	const [tipo, setTipo] = useState({
@@ -10,9 +12,14 @@ export default function Tipo() {
 	});
 
 	const sendTipo = async () => {
-		console.log(tipo);
 		if (tipo.nombre_tipo === '' || tipo.descripcion === '') {
-			alert('Existen campos vacios o invalidos.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Campos vacios o invalidos',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 		try {
@@ -22,10 +29,77 @@ export default function Tipo() {
 			};
 			const response = await tiposApi.createTipo(data);
 			if (response) {
+				await Swal.fire({
+					icon: 'success',
+					title: 'Exito',
+					text: 'Tipo creado exitosamente',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
 				router.push('/dashboard/tipos');
 			}
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al crear tipo',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
+		}
+	};
+
+	const [imageThumbnail, setImageThumbnail] = useState({
+		nombre_modelo: '',
+		tipo_archivo: '',
+		path_archivo: '',
+		descripcion: '',
+	});
+
+	const handleThumbnailFileChange = async (e: any) => {
+		if (e.target.files) {
+			const formData = new FormData();
+			formData.append('folder', 'public/catalogo/icons/');
+			Object.values(e.target.files).forEach((file) => {
+				formData.append('file', file);
+			});
+
+			const response = await fetch('/api/upload', {
+				method: 'POST',
+				body: formData,
+			});
+
+			const result = await response.json();
+			if (result.success) {
+				await Swal.fire({
+					icon: 'success',
+					title: 'Exito',
+					text: 'Subida de imagen exitosa',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
+				setImageThumbnail({
+					nombre_modelo: result.name,
+					tipo_archivo: result.type,
+					path_archivo: result.path,
+					descripcion: result.descripcion,
+				});
+			} else {
+				await Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Carga de imagen fallida',
+					showConfirmButton: true,
+					confirmButtonColor: 'red',
+				});
+				setImageThumbnail({
+					nombre_modelo: '',
+					tipo_archivo: '',
+					path_archivo: '',
+					descripcion: '',
+				});
+			}
 		}
 	};
 
@@ -72,6 +146,14 @@ export default function Tipo() {
 						/>
 					</div>
 				</div>
+				<div className='grid grid-cols-12 gap-2 w-full shadow-md p-4 border'>
+					<div className='col-span-12'>
+						<h3 className='text-lg'>Imagen de Icono del tipo de pieza</h3>
+						<h3 className='mt-6'>Icono (125px - 125px)</h3>
+						<input type='file' onChange={handleThumbnailFileChange} className='w-full mt-2' />
+					</div>
+				</div>
+
 				<div className='flex flex-row gap-2 items-center justify-center w-full mt-4'>
 					<button
 						className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'

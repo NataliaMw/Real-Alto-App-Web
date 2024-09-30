@@ -1,14 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 import piezasApi from '@/app/libs/piezasApi';
-import usosApi from '@/app/libs/usosApi';
 import tiposApi from '@/app/libs/tiposApi';
-import procedenciasApi from '@/app/libs/procedenciasApi';
 
 import { FiSlash, FiXCircle } from 'react-icons/fi';
-import { FaTrash, FaEdit } from 'react-icons/fa';
-
-import Link from 'next/link';
+import { FaTrash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -38,6 +35,13 @@ export default function CatalogoPiezas() {
 			setPiezas(response);
 			setLoading(false);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar las piezas',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setLoading(false);
 			setError(error.message);
 		}
@@ -48,6 +52,13 @@ export default function CatalogoPiezas() {
 			const response = await tiposApi.getAllTipos({});
 			setTiposPieza(response);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar los tipos',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};
@@ -137,10 +148,10 @@ export default function CatalogoPiezas() {
 									<Image
 										src={linkIcon(tipo.nombre_tipo)}
 										alt=''
-										width={80}
+										width={60}
 										height={80}
 										objectFit='cover'
-										className=''
+										className='!h-[60px] !w-[80px]'
 									/>
 								</div>
 								<span className='h-fit w-full text-center'>{tipo.nombre_tipo ?? 'Sin tipo'}</span>
@@ -156,13 +167,13 @@ export default function CatalogoPiezas() {
 				) : error ? (
 					errorPiezas
 				) : !loading && !error && piezas.length !== 0 ? (
-					<div className='h-full my-2 shadow-md grid grid-cols-12 items-center justify-center w-full justify-items-center mt-2 mb-20 py-20'>
+					<div className='h-full my-2 shadow-md grid grid-cols-12 items-center justify-center w-full justify-items-center mt-2 mb-20 py-20 gap-6'>
 						{piezas.length !== 0 &&
 							piezas.map((pieza: any, index) => (
-								<Link
-									href={`/catalogo/piezas/tipo/${filters.nombre_tipo}`}
+								<div
+									onClick={() => router.push(`/catalogo/piezas/tipo/${filters.nombre_tipo}`)}
 									key={index}
-									className='col-span-6 sm:col-span-4 md:col-span-3 w-fit h-full items-center justify-between flex flex-col cursor-pointer gap-2 shadow-md rounded-md
+									className='col-span-6 sm:col-span-6 md:col-span-4 lg:col-span-3 w-fit h-full items-center justify-between flex flex-col cursor-pointer gap-2 shadow-md rounded-md
                                     hover:scale-105 transition transition-300 hover:shadow-lg'
 								>
 									<div className='h-full flex items-center justify-center w-full'>
@@ -172,10 +183,10 @@ export default function CatalogoPiezas() {
 											width={350}
 											height={350}
 											objectFit='cover'
-											className='aspect-w-3 aspect-h-4'
+											className=''
 										/>
 									</div>
-									<div className='flex flex-col justify-center items-center h-fit w-fit text-center text-black'>
+									<div className='flex flex-col justify-start items-center h-full w-fit text-center text-black'>
 										<p className='text-center text-xl font-semibold'>{pieza.nombre_pieza}</p>
 										<p className='text-center text-lg font-erode font-semibold'>
 											{pieza.pieza_procedencias[0]?.procedencia?.periodo_inicio} -{' '}
@@ -185,7 +196,7 @@ export default function CatalogoPiezas() {
 											{pieza.descripcion_corta.substr(0, 35) ?? 'Sin descripción'}{' '}
 										</p>
 									</div>
-								</Link>
+								</div>
 							))}
 					</div>
 				) : (

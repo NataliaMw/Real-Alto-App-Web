@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import usosApi from '@/app/libs/usosApi';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
+
 export default function Uso() {
 	const router = useRouter();
 	const [uso, setUso] = useState({
@@ -10,9 +12,14 @@ export default function Uso() {
 	});
 
 	const sendUso = async () => {
-		console.log(uso);
 		if (uso.nombre_uso === '' || uso.descripcion === '') {
-			alert('Existen campos vacios o invalidos.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Campos vacios o invalidos',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 		try {
@@ -22,9 +29,23 @@ export default function Uso() {
 			};
 			const response = await usosApi.createUso(data);
 			if (response) {
+				await Swal.fire({
+					icon: 'success',
+					title: 'Exito',
+					text: 'Uso agregado correctamente',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
 				router.push('/dashboard/usos');
 			}
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al agregar uso',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
 		}
 	};

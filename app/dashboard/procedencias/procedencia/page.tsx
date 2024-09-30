@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import procedenciasApi from '@/app/libs/procedenciasApi';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 export default function Procedencia() {
 	const router = useRouter();
@@ -14,7 +15,6 @@ export default function Procedencia() {
 	});
 
 	const sendProcedencia = async () => {
-		console.log(procedencia);
 		if (
 			procedencia.origen === '' ||
 			procedencia.periodo_fin === '' ||
@@ -22,7 +22,13 @@ export default function Procedencia() {
 			procedencia.descripcion === '' ||
 			procedencia.nivel_cronologico < 0
 		) {
-			alert('Existen campos vacios o invalidos.');
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Complete todos los campos',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 		try {
@@ -35,9 +41,23 @@ export default function Procedencia() {
 			};
 			const response = await procedenciasApi.createProcedencia(data);
 			if (response) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Procedencia creada',
+					text: 'Procedencia creada con exito',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
 				router.push('/dashboard/procedencias');
 			}
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al crear procedencia',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
 		}
 	};

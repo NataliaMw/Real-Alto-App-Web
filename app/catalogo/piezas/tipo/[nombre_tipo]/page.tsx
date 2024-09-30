@@ -4,7 +4,7 @@ import piezasApi from '@/app/libs/piezasApi';
 import tiposApi from '@/app/libs/tiposApi';
 import { useState, useEffect } from 'react';
 import CatalogoItem from '@/app/components/CatalogoItem';
-
+import Swal from 'sweetalert2';
 interface IParams {
 	nombre_tipo: string;
 }
@@ -28,6 +28,13 @@ const CatalogoTipoPieza = ({ params }: { params: IParams }) => {
 			const response = await tiposApi.getAllTipos({});
 			setTiposPieza(response);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar los tipos',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};
@@ -48,11 +55,18 @@ const CatalogoTipoPieza = ({ params }: { params: IParams }) => {
 				nombre_tipo: nombre_tipo.toUpperCase(),
 			};
 			const response = await piezasApi.getAllPiezas(params);
-			console.log(response);
+
 			setPiezas(response.data);
 			setTotalPages(response.totalPages);
 			setLoading(false);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar las piezas',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setLoading(false);
 			setError(error.message);
 		}

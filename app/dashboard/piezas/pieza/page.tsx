@@ -6,6 +6,7 @@ import tiposApi from '@/app/libs/tiposApi';
 import usosApi from '@/app/libs/usosApi';
 import procedenciasApi from '@/app/libs/procedenciasApi';
 import { FaTrash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 export default function CreatePieza() {
 	const router = useRouter();
@@ -49,6 +50,13 @@ export default function CreatePieza() {
 			const response = await procedenciasApi.getAllProcedencias({});
 			setProcedencias(response);
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Carga de procedencias fallida',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
 		}
 	};
@@ -58,6 +66,13 @@ export default function CreatePieza() {
 			const response = await tiposApi.getAllTipos({});
 			setTipos(response);
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Carga de tipos fallida',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
 		}
 	};
@@ -67,6 +82,13 @@ export default function CreatePieza() {
 			const response = await usosApi.getAllUsos({});
 			setUsos(response);
 		} catch (error: any) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Carga de usos fallida',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
 		}
 	};
@@ -103,6 +125,13 @@ export default function CreatePieza() {
 
 			const result = await response.json();
 			if (result.success) {
+				await Swal.fire({
+					icon: 'success',
+					title: 'Exito',
+					text: 'Subida de imagen exitosa',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
 				setImage3D({
 					nombre_modelo: result.name,
 					tipo_archivo: result.type,
@@ -110,7 +139,13 @@ export default function CreatePieza() {
 					descripcion: result.descripcion,
 				});
 			} else {
-				alert('Upload failed');
+				await Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Carga de imagen fallida',
+					showConfirmButton: true,
+					confirmButtonColor: 'red',
+				});
 				setImage3D({
 					nombre_modelo: '',
 					tipo_archivo: '',
@@ -135,7 +170,13 @@ export default function CreatePieza() {
 
 			const result = await response.json();
 			if (result.success) {
-				alert('Upload ok : ' + result.name);
+				await Swal.fire({
+					icon: 'success',
+					title: 'Exito',
+					text: 'Subida de imagen exitosa',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
 				setImageThumbnail({
 					nombre_modelo: result.name,
 					tipo_archivo: result.type,
@@ -143,7 +184,13 @@ export default function CreatePieza() {
 					descripcion: result.descripcion,
 				});
 			} else {
-				alert('Upload failed');
+				await Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Carga de imagen fallida',
+					showConfirmButton: true,
+					confirmButtonColor: 'red',
+				});
 				setImageThumbnail({
 					nombre_modelo: '',
 					tipo_archivo: '',
@@ -174,6 +221,11 @@ export default function CreatePieza() {
 		const dimensiones = [...piezaDimensionData];
 		dimensiones.push(dimension);
 		setPiezaDimensionData(dimensiones);
+		setDimension({
+			valor_medida: '',
+			unidad_medida: '',
+			descripcion: '',
+		});
 	};
 
 	const removeDimension = (index: any) => {
@@ -184,24 +236,57 @@ export default function CreatePieza() {
 
 	const sendPieza = async () => {
 		if (!pieza.nombre_pieza || !pieza.descripcion || !pieza.descripcion_corta) {
-			alert('Existen campos vacios o invalidos.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Existen campos vacios o invalidos.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 
 		if (piezaDimensionData.length === 0) {
-			alert('Debe agregar al menos una dimension.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debe agregar al menos una dimension.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
+
 			return;
 		}
 		if (piezaTiposData.length === 0) {
-			alert('Debe seleccionar al menos un tipo.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debe seleccionar al menos un tipo.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
+
 			return;
 		}
 		if (piezaProcedenciasData.length === 0) {
-			alert('Debe seleccionar al menos una procedencia.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debe seleccionar al menos una procedencia.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
+
 			return;
 		}
 		if (piezaUsoData.length === 0) {
-			alert('Debe seleccionar al menos un uso.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debe seleccionar al menos un uso.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 		if (
@@ -210,7 +295,13 @@ export default function CreatePieza() {
 			image3D.path_archivo === '' &&
 			image3D.tipo_archivo === ''
 		) {
-			alert('Debe agregar una imagen visual.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debe agregar una imagen visual.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 		if (
@@ -219,7 +310,13 @@ export default function CreatePieza() {
 			imageThumbnail.path_archivo === '' &&
 			imageThumbnail.tipo_archivo === ''
 		) {
-			alert('Debe agregar una imagen thumbnail.');
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debe agregar una imagen thumbnail.',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			return;
 		}
 
@@ -251,11 +348,25 @@ export default function CreatePieza() {
 				],
 			};
 			const response = await piezasApi.createPieza(data);
-			console.log(response);
+
 			if (response) {
+				await Swal.fire({
+					icon: 'success',
+					title: 'Exito',
+					text: 'Ha sido creada la pieza correctamente.',
+					showConfirmButton: true,
+					confirmButtonColor: '#3085d6',
+				});
 				router.push('/dashboard/piezas');
 			}
 		} catch (error) {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al agregar pieza',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			console.error(error);
 		}
 	};
@@ -336,8 +447,8 @@ export default function CreatePieza() {
 					<div className='col-span-12 w-full'>
 						<h3 className='text-lg'>Dimensiones de pieza:</h3>
 						<div className='grid grid-cols-12 gap-2 w-full mt-4 items-center'>
-							<div className='col-span-12 md:col-span-3 w-full'>
-								<label>Descripcion de medida:</label>
+							<div className='col-span-12 md:col-span-6 w-full'>
+								<label>Descripcion:</label>
 								<input
 									type='text'
 									name='descripcion'
@@ -347,8 +458,8 @@ export default function CreatePieza() {
 									onChange={handleDimensionChange}
 								/>
 							</div>
-							<div className='col-span-12 md:col-span-3 w-full'>
-								<label>Valor de medida:</label>
+							<div className='col-span-12 md:col-span-6 w-full'>
+								<label>Valor:</label>
 								<input
 									type='number'
 									name='valor_medida'
@@ -360,8 +471,8 @@ export default function CreatePieza() {
 									onChange={handleDimensionChange}
 								/>
 							</div>
-							<div className='col-span-12 md:col-span-3 w-full'>
-								<label>Unidad de medida:</label>
+							<div className='col-span-12 md:col-span-6 w-full'>
+								<label>Unidad:</label>
 								<input
 									type='text'
 									name='unidad_medida'
@@ -371,7 +482,7 @@ export default function CreatePieza() {
 									onChange={handleDimensionChange}
 								/>
 							</div>
-							<div className='col-span-12 md:col-span-3 w-full mt-4'>
+							<div className='col-span-12 md:col-span-6 w-full mt-4'>
 								<button
 									className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'
 									onClick={addDimension}

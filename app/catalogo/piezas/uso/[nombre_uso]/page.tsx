@@ -4,6 +4,7 @@ import piezasApi from '@/app/libs/piezasApi';
 import usosApi from '@/app/libs/usosApi';
 import { useState, useEffect } from 'react';
 import CatalogoItem from '@/app/components/CatalogoItem';
+import Swal from 'sweetalert2';
 
 interface IParams {
 	nombre_uso: string;
@@ -28,6 +29,13 @@ const CatalogoUsoPieza = ({ params }: { params: IParams }) => {
 			const response = await usosApi.getAllUsos({});
 			setUsosPieza(response);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar los usos',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setError(error.message);
 		}
 	};
@@ -48,11 +56,18 @@ const CatalogoUsoPieza = ({ params }: { params: IParams }) => {
 				nombre_uso: nombre_uso.toUpperCase(),
 			};
 			const response = await piezasApi.getAllPiezas(params);
-			console.log(response);
+
 			setPiezas(response.data);
 			setTotalPages(response.totalPages);
 			setLoading(false);
 		} catch (error: any) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Error al cargar las piezas',
+				showConfirmButton: true,
+				confirmButtonColor: 'red',
+			});
 			setLoading(false);
 			setError(error.message);
 		}
