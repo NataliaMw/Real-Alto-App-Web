@@ -19,7 +19,7 @@ export default function DashboardLayout({
 				<link href='https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css' rel='stylesheet' />
 			</head>
 			<body>
-				<>
+				<div>
 					<button
 						data-drawer-target='default-sidebar'
 						data-drawer-toggle='default-sidebar'
@@ -119,7 +119,7 @@ export default function DashboardLayout({
 					</aside>
 
 					<div className='p-4 sm:ml-64'>{children}</div>
-				</>
+				</div>
 				<script src='https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js'></script>
 			</body>
 		</html>

@@ -14,6 +14,8 @@ function Cronologia({ data }: CronologiaProps) {
 	const selectedOrigen = data[0];
 	const lastOrigen = data[data.length - 1];
 
+	console.log(data);
+
 	return (
 		<div className='flex flex-col w-full p-6 items-center'>
 			<div className='p-6 justify-center items-center'>
@@ -28,6 +30,29 @@ function Cronologia({ data }: CronologiaProps) {
 				</p>
 			</div>
 
+			{/* NO BORRAR ADVERTIDO ESTAS */}
+			<div className={'bg-vector1 flex'}>
+				<div className={`flex col-start-1`}></div>
+			</div>
+			<div className={'bg-vector2 flex'}>
+				<div className={`flex col-start-2`}></div>
+			</div>
+			<div className={'bg-vector3 flex'}>
+				<div className={`flex col-start-3`}></div>
+			</div>
+			<div className={'bg-vector4 flex'}>
+				<div className={`flex col-start-4`}></div>
+			</div>
+			<div className={'bg-vector5 flex'}>
+				<div className={`flex col-start-5`}></div>
+			</div>
+			<div className={'bg-vector6 flex'}>
+				<div className={`flex col-start-6`}></div>
+			</div>
+			<div className={'bg-vector7 flex'}>
+				<div className={`flex col-start-7`}></div>
+			</div>
+
 			<div className='flex flex-col w-9/12 md:w-[48vw] space-y-4 '>
 				{data.map((origen, index) => (
 					<Link key={index} href={getLink(index)}>
@@ -39,6 +64,8 @@ function Cronologia({ data }: CronologiaProps) {
 									index + 1
 								}`}
 							>
+								{/* NO BORRAR ADVERTIDO ESTAS */}
+								<p className='hidden'>{index}</p>
 								{origen?.nivel_cronologico}
 							</div>
 						</div>
