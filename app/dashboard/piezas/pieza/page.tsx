@@ -28,13 +28,13 @@ export default function CreatePieza() {
 	const [piezaUsoData, setPiezaUsoData] = useState([]);
 	const [modeloData, setModeloData] = useState([]);
 	const [image3D, setImage3D] = useState({
-		nombre_archivo: '',
+		nombre_modelo: '',
 		tipo_archivo: '',
 		path_archivo: '',
 		descripcion: '',
 	});
 	const [imageThumbnail, setImageThumbnail] = useState({
-		nombre_archivo: '',
+		nombre_modelo: '',
 		tipo_archivo: '',
 		path_archivo: '',
 		descripcion: '',
@@ -85,7 +85,7 @@ export default function CreatePieza() {
 		const { name, value, type, checked } = e.target;
 		setPieza({
 			...pieza,
-			[name]: type === 'checkbox' ? checked : value,
+			[name]: type === 'checkbox' ? checked : value.toUpperCase(),
 		});
 	};
 
@@ -102,11 +102,9 @@ export default function CreatePieza() {
 			});
 
 			const result = await response.json();
-			console.log(result);
 			if (result.success) {
-				alert('Upload ok : ' + result.name);
 				setImage3D({
-					nombre_archivo: result.name,
+					nombre_modelo: result.name,
 					tipo_archivo: result.type,
 					path_archivo: result.path,
 					descripcion: result.descripcion,
@@ -114,7 +112,7 @@ export default function CreatePieza() {
 			} else {
 				alert('Upload failed');
 				setImage3D({
-					nombre_archivo: '',
+					nombre_modelo: '',
 					tipo_archivo: '',
 					path_archivo: '',
 					descripcion: '',
@@ -139,7 +137,7 @@ export default function CreatePieza() {
 			if (result.success) {
 				alert('Upload ok : ' + result.name);
 				setImageThumbnail({
-					nombre_archivo: result.name,
+					nombre_modelo: result.name,
 					tipo_archivo: result.type,
 					path_archivo: result.path,
 					descripcion: result.descripcion,
@@ -147,7 +145,7 @@ export default function CreatePieza() {
 			} else {
 				alert('Upload failed');
 				setImageThumbnail({
-					nombre_archivo: '',
+					nombre_modelo: '',
 					tipo_archivo: '',
 					path_archivo: '',
 					descripcion: '',
@@ -168,7 +166,7 @@ export default function CreatePieza() {
 		const { name, value } = e.target;
 		setDimension({
 			...dimension,
-			[name]: value,
+			[name]: typeof value === 'string' ? value.toUpperCase() : value,
 		});
 	};
 
@@ -208,7 +206,7 @@ export default function CreatePieza() {
 		}
 		if (
 			image3D.descripcion !== '' &&
-			image3D.nombre_archivo === '' &&
+			image3D.nombre_modelo === '' &&
 			image3D.path_archivo === '' &&
 			image3D.tipo_archivo === ''
 		) {
@@ -217,7 +215,7 @@ export default function CreatePieza() {
 		}
 		if (
 			imageThumbnail.descripcion !== '' &&
-			imageThumbnail.nombre_archivo === '' &&
+			imageThumbnail.nombre_modelo === '' &&
 			imageThumbnail.path_archivo === '' &&
 			imageThumbnail.tipo_archivo === ''
 		) {
@@ -239,13 +237,13 @@ export default function CreatePieza() {
 				piezaUsoData: piezaUsoData.map((uso: any) => ({ id_uso: uso.id })),
 				modeloData: [
 					{
-						nombre_archivo: image3D.nombre_archivo,
+						nombre_modelo: pieza.nombre_pieza.toUpperCase() + '3D',
 						path_archivo: image3D.path_archivo,
 						tipo_archivo: image3D.tipo_archivo,
 						descripcion: '3D',
 					},
 					{
-						nombre_archivo: imageThumbnail.nombre_archivo,
+						nombre_modelo: pieza.nombre_pieza.toUpperCase() + 'THUMBNAIL',
 						path_archivo: imageThumbnail.path_archivo,
 						tipo_archivo: imageThumbnail.tipo_archivo,
 						descripcion: 'THUMBNAIL',
@@ -270,13 +268,13 @@ export default function CreatePieza() {
 			activo: true,
 		});
 		setImage3D({
-			nombre_archivo: '',
+			nombre_modelo: '',
 			tipo_archivo: '',
 			path_archivo: '',
 			descripcion: '',
 		});
 		setImageThumbnail({
-			nombre_archivo: '',
+			nombre_modelo: '',
 			tipo_archivo: '',
 			path_archivo: '',
 			descripcion: '',
@@ -290,7 +288,7 @@ export default function CreatePieza() {
 	return (
 		<main className='flex flex-col bg-white text-black w-full p-10'>
 			<div className='mx-6'>
-				<h1 className='my-6 text-xl md:text-3xl flex items-center justify-center'>Crear Pieza</h1>
+				<h1 className='my-6 text-xl md:text-4xl flex items-center justify-center font-semibold'>Crear Pieza</h1>
 				{/* Pieza Main Info */}
 				<div className='grid grid-cols-12 gap-2 w-full shadow-md p-4 border'>
 					<div className='col-span-12 md:col-span-6'>

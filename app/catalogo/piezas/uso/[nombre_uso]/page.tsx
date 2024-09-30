@@ -1,38 +1,27 @@
 'use client';
 
 import piezasApi from '@/app/libs/piezasApi';
-import tiposApi from '@/app/libs/tiposApi';
 import usosApi from '@/app/libs/usosApi';
 import { useState, useEffect } from 'react';
 import CatalogoItem from '@/app/components/CatalogoItem';
 
 interface IParams {
-	nombre_tipo: string;
+	nombre_uso: string;
 }
 
-const TipoPieza = ({ params }: { params: IParams }) => {
-	let { nombre_tipo } = params;
-	nombre_tipo = nombre_tipo.toUpperCase();
+const CatalogoUsoPieza = ({ params }: { params: IParams }) => {
+	let { nombre_uso } = params;
+	nombre_uso = nombre_uso.toUpperCase();
 
 	const [piezas, setPiezas] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const [tiposPieza, setTiposPieza] = useState([]);
 	const [usosPieza, setUsosPieza] = useState([]);
 
 	const [page, setPage] = useState(1);
-	const [pageSize, setPageSize] = useState(5);
+	const [pageSize, setPageSize] = useState(10);
 	const [totalPages, setTotalPages] = useState(1);
-
-	const fetchTipos = async () => {
-		try {
-			const response = await tiposApi.getAllTipos({});
-			setTiposPieza(response);
-		} catch (error: any) {
-			setError(error.message);
-		}
-	};
 
 	const fetchUsos = async () => {
 		try {
@@ -56,12 +45,12 @@ const TipoPieza = ({ params }: { params: IParams }) => {
 				with_pieza_procedencias: 1,
 				with_pieza_dimension: 1,
 				with_modelos: 1,
-				nombre_tipo: nombre_tipo.toUpperCase(),
+				nombre_uso: nombre_uso.toUpperCase(),
 			};
 			const response = await piezasApi.getAllPiezas(params);
-			console.log(response.data);
+			console.log(response);
 			setPiezas(response.data);
-			setTotalPages(response.totalPages ?? 1);
+			setTotalPages(response.totalPages);
 			setLoading(false);
 		} catch (error: any) {
 			setLoading(false);
@@ -71,10 +60,11 @@ const TipoPieza = ({ params }: { params: IParams }) => {
 
 	useEffect(() => {
 		fetchPiezas();
-	}, []);
+		fetchUsos();
+	}, [page]);
 
 	return (
-		<main className='bg-white text-black flex flex-col w-full'>
+		<main className='bg-white text-black flex flex-col w-full h-full'>
 			<CatalogoItem
 				piezas={piezas}
 				page={page}
@@ -82,11 +72,13 @@ const TipoPieza = ({ params }: { params: IParams }) => {
 				pageSize={pageSize}
 				totalPages={totalPages}
 				usos={usosPieza}
-				tipos={tiposPieza}
-				nombre_tipo={nombre_tipo}
+				tipos={[]}
+				procedencias={[]}
+				currentFilter={'uso'}
+				currentSubFilter={nombre_uso}
 			/>
 		</main>
 	);
 };
 
-export default TipoPieza;
+export default CatalogoUsoPieza;

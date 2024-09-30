@@ -1,9 +1,9 @@
-import Figurinas from "../../../components/Catalogo/Figurinas";
+import Figurinas from '@/app/components/Catalogo/Figurinas';
 
 export default function CatalogoPage() {
-  return (
-    <main className="flex bg-white">
-      <Figurinas/>
-    </main>
-  );
+	return (
+		<main className='flex bg-white'>
+			<Figurinas />
+		</main>
+	);
 }

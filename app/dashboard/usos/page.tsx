@@ -5,6 +5,7 @@ import usosApi from '@/app/libs/usosApi';
 import { FiSlash, FiXCircle } from 'react-icons/fi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 export default function DashboardUsos() {
 	const router = useRouter();
@@ -18,6 +19,19 @@ export default function DashboardUsos() {
 	const [totalPages, setTotalPages] = useState(1);
 
 	const [searchAfterReset, setSearchAfterReset] = useState(false);
+	const [searchAfterPageChange, setSearchAfterPageChange] = useState(false);
+
+	const handlePageChange = (newPage: number) => {
+		setPage(newPage);
+		setSearchAfterPageChange(true);
+	};
+
+	useEffect(() => {
+		if (searchAfterPageChange) {
+			fetchUsos();
+			setSearchAfterPageChange(false);
+		}
+	}, [searchAfterPageChange]);
 
 	const [filters, setFilters] = useState({
 		id_uso: '',
@@ -55,11 +69,6 @@ export default function DashboardUsos() {
 		});
 	};
 
-	const handlePageChange = (newPage: number) => {
-		setPage(newPage);
-		fetchUsos();
-	};
-
 	const searchUso = () => {
 		setPage(1);
 		fetchUsos();
@@ -81,6 +90,20 @@ export default function DashboardUsos() {
 		}
 	}, [searchAfterReset]);
 
+	const editUso = async (uso: any) => {
+		router.push(`/dashboard/usos/uso/${uso.id_uso}`);
+	};
+
+	const deleteUso = async (uso: any) => {
+		try {
+			const id = uso.id_uso;
+			const response = await usosApi.deleteUso(id);
+			searchUso();
+		} catch (error: any) {
+			console.error(error?.error);
+		}
+	};
+
 	const emptyUsos = (
 		<div className='bg-white shadow-md rounded-md p-4 flex justify-center items-center flex-col gap-2'>
 			<FiSlash size={42} />
@@ -100,12 +123,16 @@ export default function DashboardUsos() {
 	);
 
 	return (
-		<main className='flex flex-col bg-white text-black w-full'>
+		<main className='flex flex-col bg-white text-black w-full h-full min-h-[100vh]'>
 			<div className='mx-6'>
-				<h1 className='my-6 text-xl md:text-3xl flex justify-center'>Usos</h1>
+				<h1 className='mt-6 mb-2 text-2xl md:text-4xl flex justify-start font-semibold'>Gestión de Usos</h1>
+				<p className='text-gray-700 text-lg'>
+					Visualice los usos de las piezas arqueologicas que se encuentran registradas y realice las actualizaciones que
+					crea necesarias.
+				</p>
 				{/* <!-- Filtros --> */}
-				<div className='grid grid-cols-12 gap-2'>
-					<section className='grid grid-cols-12 col-span-9 gap-4 mb-6 items-center'>
+				<div className='grid grid-cols-12 gap-2 mt-6'>
+					<section className='grid grid-cols-12 col-span-12 gap-4 mb-6 items-center'>
 						<div className='col-span-12 md:col-span-6'>
 							<label className='block text-gray-700'>ID Uso:</label>
 							<input
@@ -131,14 +158,14 @@ export default function DashboardUsos() {
 							/>
 						</div>
 					</section>
-					<div className='col-span-3 items-center justify-center flex'>
-						<button
-							className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'
-							onClick={searchUso}
-						>
-							Filtrar
-						</button>
-					</div>
+				</div>
+				<div className='w-fit items-center justify-center flex ml-auto'>
+					<button
+						className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'
+						onClick={searchUso}
+					>
+						Filtrar
+					</button>
 				</div>
 				<hr className='my-2' />
 				<div className='flex justify-end'>
@@ -150,31 +177,51 @@ export default function DashboardUsos() {
 					</button>
 				</div>
 				{/* <!-- Catálogo --> */}
-				{loading && emptyUsos}
-				{error && errorUsos}
-				{!loading && !error && usos.length !== 0 ? (
-					<table className='my-12 tableDashboard'>
-						<thead>
-							<tr>
-								<th>ID Uso</th>
-								<th>Nombre de Uso</th>
-								<th>Descripcion</th>
-							</tr>
-						</thead>
-						<tbody>
-							{usos.length !== 0 &&
-								usos.map((uso: any, index) => (
-									<tr key={index}>
-										<td>{uso.id_uso}</td>
-										<td>
-											<Link href={'#'}>{uso.nombre_uso}</Link>
-										</td>
-										<td>{uso.descripcion}</td>
-										<td></td>
-									</tr>
-								))}
-						</tbody>
-					</table>
+				{loading ? (
+					emptyUsos
+				) : error ? (
+					errorUsos
+				) : !loading && !error && usos.length !== 0 ? (
+					<div className='overflow-x-auto h-full my-2 shadow-md'>
+						<table className='tableDashboard min-w-full'>
+							<thead>
+								<tr>
+									<th>ID Uso</th>
+									<th>Nombre de Uso</th>
+									<th>Descripcion</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{usos.length !== 0 &&
+									usos.map((uso: any, index) => (
+										<tr key={index}>
+											<td>{uso.id_uso}</td>
+											<td>
+												<Link href={'#'}>{uso.nombre_uso}</Link>
+											</td>
+											<td>{uso.descripcion}</td>
+											<td>
+												<div className='flex flex-row gap-2 items-center justify-center'>
+													<button
+														className='hover: cursor-pointer p-2 hover:bg-gray-200 rounded-md text-gray-500 hover:text-cyan-500 flex items-center justify-center'
+														onClick={() => editUso(uso)}
+													>
+														<FaEdit size={24} />
+													</button>
+													<button
+														className='hover: cursor-pointer p-2 hover:bg-gray-200 rounded-md text-gray-500 hover:text-red-500 flex items-center justify-center'
+														onClick={() => deleteUso(uso)}
+													>
+														<FaTrash size={24} />
+													</button>
+												</div>
+											</td>
+										</tr>
+									))}
+							</tbody>
+						</table>
+					</div>
 				) : (
 					emptyUsos
 				)}

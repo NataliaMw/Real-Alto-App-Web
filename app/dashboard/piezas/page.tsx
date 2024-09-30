@@ -27,6 +27,19 @@ export default function DashboardPiezas() {
 	const [totalPages, setTotalPages] = useState(1);
 
 	const [searchAfterReset, setSearchAfterReset] = useState(false);
+	const [searchAfterPageChange, setSearchAfterPageChange] = useState(false);
+
+	const handlePageChange = (newPage: number) => {
+		setPage(newPage);
+		setSearchAfterPageChange(true);
+	};
+
+	useEffect(() => {
+		if (searchAfterPageChange) {
+			fetchPiezas();
+			setSearchAfterPageChange(false);
+		}
+	}, [searchAfterPageChange]);
 
 	const [filters, setFilters] = useState({
 		id_procedencia: '',
@@ -65,7 +78,6 @@ export default function DashboardPiezas() {
 				with_modelos: 1,
 			};
 			const response = await piezasApi.getAllPiezas(params);
-			console.log(response.data);
 			setPiezas(response.data);
 			setTotalPages(response.totalPages ?? 1);
 			setLoading(false);
@@ -117,11 +129,6 @@ export default function DashboardPiezas() {
 		});
 	};
 
-	const handlePageChange = (newPage: number) => {
-		setPage(newPage);
-		fetchPiezas();
-	};
-
 	const searchPiezas = () => {
 		setPage(1);
 		fetchPiezas();
@@ -146,7 +153,7 @@ export default function DashboardPiezas() {
 	}, [searchAfterReset]);
 
 	const emptyPiezas = (
-		<div className='bg-white shadow-md rounded-md p-4 flex justify-center items-center flex-col gap-2'>
+		<div className='bg-white shadow-md rounded-md p-4 flex justify-center items-center flex-col gap-2 min-h-[50vh]'>
 			<FiSlash size={42} />
 			<h1 className='text-2xl font-semibold'>No se encontraron piezas</h1>
 			<button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={resetSearch}>
@@ -156,7 +163,7 @@ export default function DashboardPiezas() {
 	);
 
 	const errorPiezas = (
-		<div className='bg-white shadow-md rounded-md p-4 flex justify-center items-center flex-col gap-2'>
+		<div className='bg-white shadow-md rounded-md p-4 flex justify-center items-center flex-col gap-2 min-h-[50vh]'>
 			<FiXCircle size={42} />
 			<h3 className='text-2xl font-semibold'>Error al cargar las piezas</h3>
 			<p>{error}</p>
@@ -164,13 +171,17 @@ export default function DashboardPiezas() {
 	);
 
 	return (
-		<main className='flex flex-col bg-white text-black w-full'>
+		<main className='flex flex-col bg-white text-black w-full h-full min-h-[100vh]'>
 			<div className='mx-6'>
-				<h1 className='my-6 text-xl md:text-3xl flex justify-center'>Piezas</h1>
+				<h1 className='mt-6 mb-2 text-2xl md:text-4xl flex justify-start font-semibold'>Gestión de Piezas</h1>
+				<p className='text-gray-700 text-lg'>
+					Visualice las piezas arqueologicas que se encuentran registradas y realice las actualizaciones que crea
+					necesarias.
+				</p>
 				{/* <!-- Filtros --> */}
-				<div className='grid grid-cols-12 gap-2'>
-					<section className='grid grid-cols-12 col-span-9 gap-4 mb-6 items-center'>
-						<div className='col-span-12 md:col-span-3'>
+				<div className='grid grid-cols-12 gap-2 mt-6'>
+					<section className='grid grid-cols-12 col-span-12 gap-4 mb-6 items-center'>
+						<div className='col-span-12 md:col-span-6'>
 							<label className='block text-gray-700'>Búsqueda:</label>
 							<input
 								type='text'
@@ -182,7 +193,7 @@ export default function DashboardPiezas() {
 								placeholder='Buscar por descripcion o nombre'
 							/>
 						</div>
-						<div className='col-span-12 md:col-span-3'>
+						<div className='col-span-12 md:col-span-6'>
 							<label className='block text-gray-700'>Procedencia:</label>
 							<select
 								name='id_procedencia'
@@ -198,7 +209,7 @@ export default function DashboardPiezas() {
 								))}
 							</select>
 						</div>
-						<div className='col-span-12 md:col-span-3'>
+						<div className='col-span-12 md:col-span-6'>
 							<label className='block text-gray-700'>Tipo de pieza:</label>
 							<select
 								name='id_tipo'
@@ -214,7 +225,7 @@ export default function DashboardPiezas() {
 								))}
 							</select>
 						</div>
-						<div className='col-span-12 md:col-span-3'>
+						<div className='col-span-12 md:col-span-6'>
 							<label className='block text-gray-700'>Uso de pieza:</label>
 							<select
 								name='id_uso'
@@ -231,14 +242,14 @@ export default function DashboardPiezas() {
 							</select>
 						</div>
 					</section>
-					<div className='col-span-3 items-center justify-center flex'>
-						<button
-							className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'
-							onClick={searchPiezas}
-						>
-							Filtrar
-						</button>
-					</div>
+				</div>
+				<div className='w-fit items-center justify-center flex ml-auto'>
+					<button
+						className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full'
+						onClick={searchPiezas}
+					>
+						Filtrar
+					</button>
 				</div>
 				<hr className='my-2' />
 				<div className='flex justify-end'>
@@ -255,87 +266,87 @@ export default function DashboardPiezas() {
 				) : error ? (
 					errorPiezas
 				) : !loading && !error && piezas.length !== 0 ? (
-					<table className='my-12 tableDashboard'>
-						<thead>
-							<tr>
-								<th>ID Pieza</th>
-								<th>Nombre Pieza</th>
-								<th>Descripcion</th>
-								<th>Descripcion Corta</th>
-								<th>Activo</th>
-								<th>Tipos de Pieza</th>
-								<th>Usos de pieza</th>
-								<th>Procedencias de pieza</th>
-								<th>Imagen de pieza</th>
-								<th>Dimensiones de pieza</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							{piezas.length !== 0 &&
-								piezas.map((pieza: any, index) => (
-									<tr key={index}>
-										<td>{pieza.id_pieza}</td>
-										<td>
-											<Link href={'#'}>{pieza.nombre_pieza}</Link>
-										</td>
-										<td>{pieza.descripcion}</td>
-										<td>{pieza.descripcion_corta}</td>
-										<td>{pieza.activo === true ? 1 : 0}</td>
-										<td>
-											{pieza?.pieza_tipo?.map((piezatipo: any) => {
-												return <p key={piezatipo.id_pieza_tipo}>{piezatipo?.tipo?.nombre_tipo}</p>;
-											})}
-										</td>
-										<td>
-											{pieza?.pieza_uso?.map((piezauso: any) => {
-												return <p key={piezauso.id_pieza_uso}>{piezauso?.uso?.nombre_uso}</p>;
-											})}
-										</td>
-										<td>
-											{pieza?.pieza_procedencia?.map((pieza_proc: any) => {
-												const origen = pieza_proc?.procedencia?.origen;
-												const nivel = pieza_proc?.procedencia?.nivel_cronologico;
-												return <p key={pieza_proc.id_pieza_procedencia}>{origen + ' - ' + nivel}</p>;
-											})}
-										</td>
-										<td>
-											<Image
-												src={pieza?.modelo?.[0].modelo_imagen?.path_archivo}
-												alt={pieza?.modelo?.[0].modelo_imagen?.nombre_archivo}
-												width={100}
-												height={100}
-												className='rounded-md object-cover'
-											/>
-										</td>
-										<td>
-											{pieza?.pieza_dimension?.map((pieza_dim: any) => {
-												const unidad = pieza_dim?.dimensiones?.unidad_medida;
-												const valor = pieza_dim?.dimensiones?.valor_medida;
-												const descripcion = pieza_dim?.dimensiones?.descripcion;
-												return <p key={pieza_dim.id_pieza_dimension}>{descripcion + ': ' + valor + unidad}</p>;
-											})}
-										</td>
-										<td>
-											<div className='flex flex-row gap-2 items-center justify-center'>
-												<button
-													className='hover: cursor-pointer p-2 hover:bg-gray-200 rounded-md text-gray-500 hover:text-cyan-500 flex items-center justify-center'
-													onClick={() => editPieza(pieza)}
-												>
-													<FaEdit size={24} />
-												</button>
-												<button
-													className='hover: cursor-pointer p-2 hover:bg-gray-200 rounded-md text-gray-500 hover:text-red-500 flex items-center justify-center'
-													onClick={() => deletePieza(pieza)}
-												>
-													<FaTrash size={24} />
-												</button>
-											</div>
-										</td>
-									</tr>
-								))}
-						</tbody>
-					</table>
+					<div className='overflow-x-auto h-full my-2 shadow-md'>
+						<table className='tableDashboard min-w-full'>
+							<thead>
+								<tr>
+									<th>ID Pieza</th>
+									<th>Nombre Pieza</th>
+									<th>Descripcion</th>
+									<th>Activo</th>
+									<th>Tipos de Pieza</th>
+									<th>Usos de pieza</th>
+									<th>Procedencias de pieza</th>
+									<th>Imagen de pieza</th>
+									<th>Dimensiones de pieza</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{piezas.length !== 0 &&
+									piezas.map((pieza: any, index) => (
+										<tr key={index}>
+											<td>{pieza.id_pieza}</td>
+											<td>
+												<Link href={'#'}>{pieza.nombre_pieza}</Link>
+											</td>
+											<td>{pieza.descripcion}</td>
+											<td>{pieza.activo === true ? 1 : 0}</td>
+											<td>
+												{pieza?.pieza_tipos?.map((piezatipo: any) => {
+													return <p key={piezatipo.id_pieza_tipo}>{piezatipo?.tipo?.nombre_tipo}</p>;
+												})}
+											</td>
+											<td>
+												{pieza?.pieza_usos?.map((piezauso: any) => {
+													return <p key={piezauso.id_pieza_uso}>{piezauso?.uso?.nombre_uso}</p>;
+												})}
+											</td>
+											<td>
+												{pieza?.pieza_procedencias?.map((pieza_proc: any) => {
+													const origen = pieza_proc?.procedencia?.origen;
+													const nivel = pieza_proc?.procedencia?.nivel_cronologico;
+													return <p key={pieza_proc.id_pieza_procedencia}>{origen + ' - ' + nivel}</p>;
+												})}
+											</td>
+											<td>
+												<Image
+													src={pieza?.modelos?.[0].modelo_imagen?.path_archivo}
+													alt={'pieza'}
+													width={100}
+													height={100}
+													className='rounded-md object-cover'
+												/>
+											</td>
+											<td>
+												{pieza?.pieza_dimensiones?.map((pieza_dim: any) => {
+													const unidad = pieza_dim?.dimensiones?.unidad_medida;
+													const valor = pieza_dim?.dimensiones?.valor_medida;
+													const descripcion = pieza_dim?.dimensiones?.descripcion;
+													return <p key={pieza_dim.id_pieza_dimension}>{descripcion + ': ' + valor + unidad}</p>;
+												})}
+											</td>
+											<td>
+												<div className='flex flex-row gap-2 items-center justify-center'>
+													<button
+														className='hover: cursor-pointer p-2 hover:bg-gray-200 rounded-md text-gray-500 hover:text-cyan-500 flex items-center justify-center'
+														onClick={() => editPieza(pieza)}
+													>
+														<FaEdit size={24} />
+													</button>
+													<button
+														className='hover: cursor-pointer p-2 hover:bg-gray-200 rounded-md text-gray-500 hover:text-red-500 flex items-center justify-center'
+														onClick={() => deletePieza(pieza)}
+													>
+														<FaTrash size={24} />
+													</button>
+												</div>
+											</td>
+										</tr>
+									))}
+							</tbody>
+						</table>
+					</div>
 				) : (
 					emptyPiezas
 				)}
