@@ -127,7 +127,7 @@ export default function Procedencia() {
 							name='periodo_inicio'
 							value={procedencia.periodo_inicio}
 							className='w-full border border-gray-300 rounded px-3 py-2 uppercase'
-							placeholder='Ingrese periodo de inicio (1200 BC)'
+							placeholder='Ingrese periodo de inicio (1200 AC)'
 							onChange={handleInputChange}
 						/>
 					</div>
@@ -138,7 +138,7 @@ export default function Procedencia() {
 							name='periodo_fin'
 							value={procedencia.periodo_fin}
 							className='w-full border border-gray-300 rounded px-3 py-2 uppercase'
-							placeholder='Ingrese periodo de fin (1200 BC)'
+							placeholder='Ingrese periodo de fin (1200 AC)'
 							onChange={handleInputChange}
 						/>
 					</div>

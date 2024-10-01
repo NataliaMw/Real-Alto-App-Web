@@ -201,7 +201,7 @@ export default function DashboardProcedencias() {
 										<tr key={index}>
 											<td>{procedencia.id_procedencia}</td>
 											<td>
-												<Link href={'#'}>{procedencia.origen}</Link>
+												<Link href={'#'}>{procedencia.origen.replace(/-/g, ' ')}</Link>
 											</td>
 											<td>{procedencia.nivel_cronologico}</td>
 											<td>{procedencia.descripcion}</td>

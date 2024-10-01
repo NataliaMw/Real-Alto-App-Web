@@ -14,12 +14,12 @@ const Footer = () => {
 					<div className='grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2  md:w-2/3'>
 						<div>
 							<ul className='flex flex-col justify-around text-white text-2xl md:text-lg font-medium break-words h-full'>
-								<li className='mb-4'>
+								<li>
 									<a href='/historia' className='hover:underline'>
 										EL MUSEO
 									</a>
 								</li>
-								<li className='mb-4'>
+								<li>
 									<a href='/categorias' className='hover:underline'>
 										CATÁLOGO
 									</a>
@@ -27,6 +27,11 @@ const Footer = () => {
 								<li>
 									<a href='/aplicacion' className='hover:underline'>
 										APLICACIÓN MÓVIL
+									</a>
+								</li>
+								<li>
+									<a href='/dashboard' className='hover:underline'>
+										DASHBOARD
 									</a>
 								</li>
 							</ul>

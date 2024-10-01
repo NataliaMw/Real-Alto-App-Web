@@ -129,7 +129,7 @@ export default function CatalogoPiezas() {
 							className='bg-white text-orange-700 font-bold py-2 px-4 rounded-md w-fit flex flex-row items-center justify-center gap-2 hover:bg-[#E67E22] hover:text-white'
 							onClick={() => setFilters({ ...filters, nombre_tipo: '' })}
 						>
-							{filters.nombre_tipo} <FaTrash />
+							{filters.nombre_tipo.replace(/-/g, ' ')} <FaTrash />
 						</button>
 					)}
 				</div>
@@ -154,7 +154,7 @@ export default function CatalogoPiezas() {
 										className='!h-[60px] !w-[80px]'
 									/>
 								</div>
-								<span className='h-fit w-full text-center'>{tipo.nombre_tipo ?? 'Sin tipo'}</span>
+								<span className='h-fit w-full text-center'>{tipo.nombre_tipo.replace(/-/g, ' ') ?? 'Sin tipo'}</span>
 							</div>
 						))}
 					</section>
@@ -187,7 +187,7 @@ export default function CatalogoPiezas() {
 										/>
 									</div>
 									<div className='flex flex-col justify-start items-center h-full w-fit text-center text-black'>
-										<p className='text-center text-xl font-semibold'>{pieza.nombre_pieza}</p>
+										<p className='text-center text-xl font-semibold'>{pieza.nombre_pieza.replace(/-/g, ' ')}</p>
 										<p className='text-center text-lg font-erode font-semibold'>
 											{pieza.pieza_procedencias[0]?.procedencia?.periodo_inicio} -{' '}
 											{pieza.pieza_procedencias[0]?.procedencia?.periodo_fin}

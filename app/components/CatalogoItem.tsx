@@ -129,7 +129,9 @@ function CatalogoItem({
 				</h2>
 			</div>
 			<div className='w-full text-center flex justify-center items-center'>
-				<span className='font-erode text-2xl md:text-4xl text-black font-semibold'>{currentPieza.nombre_pieza}</span>
+				<span className='font-erode text-2xl md:text-4xl text-black font-semibold'>
+					{currentPieza.nombre_pieza.replace(/-/g, ' ')}
+				</span>
 			</div>
 
 			{/* Vista de una sola imagen para pantallas grandes */}
@@ -276,7 +278,7 @@ function InfoBlock({ pieza }: InfoBlockProps) {
 							return (
 								<div key={pieza_proc.id_pieza_procedencia} className='w-full text-center flex flex-col'>
 									<p>{id}</p>
-									<p>{origen + ' - ' + nivel}</p>
+									<p>{origen.replace(/-/g, ' ') + ' - ' + nivel}</p>
 									<p>
 										{periodo_inicio} - {periodo_fin}
 									</p>
@@ -298,7 +300,7 @@ function InfoBlock({ pieza }: InfoBlockProps) {
 						{pieza?.pieza_usos?.map((piezauso: any) => {
 							return (
 								<div key={piezauso.id_pieza_procedencia} className='w-full text-center flex flex-col'>
-									<p key={piezauso.id_pieza_uso}>{piezauso?.uso?.nombre_uso}</p>
+									<p key={piezauso.id_pieza_uso}>{piezauso?.uso?.nombre_uso.replace(/-/g, ' ')}</p>
 								</div>
 							);
 						})}

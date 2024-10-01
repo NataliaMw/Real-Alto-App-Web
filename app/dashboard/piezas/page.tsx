@@ -204,7 +204,7 @@ export default function DashboardPiezas() {
 								<option value=''>Selecciona una procedencia</option>
 								{origenesPieza?.map((origen: any) => (
 									<option key={origen.id_procedencia} value={origen.id_procedencia}>
-										{origen.origen ?? 'Sin origen'} - Nivel {origen.nivel_cronologico}
+										{origen.origen.replace(/-/g, ' ') ?? 'Sin origen'} - Nivel {origen.nivel_cronologico}
 									</option>
 								))}
 							</select>
@@ -220,7 +220,7 @@ export default function DashboardPiezas() {
 								<option value=''>Selecciona un tipo de pieza</option>
 								{tiposPieza?.map((tipo: any) => (
 									<option key={tipo.id_tipo} value={tipo.id_tipo}>
-										{tipo.id_tipo} - {tipo.nombre_tipo ?? 'Sin tipo'}
+										{tipo.id_tipo} - {tipo.nombre_tipo.replace(/-/g, ' ') ?? 'Sin tipo'}
 									</option>
 								))}
 							</select>
@@ -236,7 +236,7 @@ export default function DashboardPiezas() {
 								<option value=''>Selecciona un uso de la pieza</option>
 								{usosPieza?.map((uso: any) => (
 									<option key={uso.id_uso} value={uso.id_uso}>
-										{uso.id_uso} - {uso.nombre_uso ?? 'Sin uso'}
+										{uso.id_uso} - {uso.nombre_uso.replace(/-/g, ' '); ?? 'Sin uso'}
 									</option>
 								))}
 							</select>
@@ -288,25 +288,27 @@ export default function DashboardPiezas() {
 										<tr key={index}>
 											<td>{pieza.id_pieza}</td>
 											<td>
-												<Link href={'#'}>{pieza.nombre_pieza}</Link>
+												<Link href={'#'}>{pieza.nombre_pieza.replace(/-/g, ' ')}</Link>
 											</td>
 											<td>{pieza.descripcion}</td>
 											<td>{pieza.activo === true ? 1 : 0}</td>
 											<td>
 												{pieza?.pieza_tipos?.map((piezatipo: any) => {
-													return <p key={piezatipo.id_pieza_tipo}>{piezatipo?.tipo?.nombre_tipo}</p>;
+													return <p key={piezatipo.id_pieza_tipo}>{piezatipo?.tipo?.nombre_tipo.replace(/-/g, ' ')}</p>;
 												})}
 											</td>
 											<td>
 												{pieza?.pieza_usos?.map((piezauso: any) => {
-													return <p key={piezauso.id_pieza_uso}>{piezauso?.uso?.nombre_uso}</p>;
+													return <p key={piezauso.id_pieza_uso}>{piezauso?.uso?.nombre_uso.replace(/-/g, ' ')}</p>;
 												})}
 											</td>
 											<td>
 												{pieza?.pieza_procedencias?.map((pieza_proc: any) => {
 													const origen = pieza_proc?.procedencia?.origen;
 													const nivel = pieza_proc?.procedencia?.nivel_cronologico;
-													return <p key={pieza_proc.id_pieza_procedencia}>{origen + ' - ' + nivel}</p>;
+													return (
+														<p key={pieza_proc.id_pieza_procedencia}>{origen.replace(/-/g, ' ') + ' - ' + nivel}</p>
+													);
 												})}
 											</td>
 											<td>

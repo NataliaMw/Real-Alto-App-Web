@@ -29,7 +29,7 @@ function TipoPieza({ data }: TipoPiezaProps) {
 						<Link key={index} href={getLink(index)}>
 							<div className='cursor-pointer bg-black rounded-lg w-[25vw] md:w-[12vw] md:h-[20vh] space-y-4 flex flex-col justify-between overflow-hidden transition duration-100 hover:scale-105'>
 								<h3 className='font-erode text-white text-sm lg:text-lg font-semibold text-center uppercase'>
-									{tipoPieza?.nombre_tipo}
+									{tipoPieza?.nombre_tipo.replace(/-/g, ' ')}
 								</h3>
 								<Image
 									src={`/catalogo/${tipoPieza?.nombre_tipo.toLowerCase()}.png`}

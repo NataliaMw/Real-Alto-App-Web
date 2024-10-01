@@ -24,9 +24,10 @@ function Cronologia({ data }: CronologiaProps) {
 				</h1>
 				<p className='text-black text-justify font-robotSlap w-[90vw] md:w-[70vw] lg:w-[50vw] font-light mt-2'>
 					Su viaje por esta categoría le va a permitir encontrar el tipo de pieza en un período específico del tiempo.
-					En este caso inicia desde la fase de <b>{selectedOrigen?.origen}</b> {selectedOrigen?.nivel_cronologico}(
-					{selectedOrigen?.periodo_inicio} - {selectedOrigen?.periodo_fin}) hasta {lastOrigen?.origen}{' '}
-					{lastOrigen?.nivel_cronologico}({lastOrigen?.periodo_inicio} - {lastOrigen?.periodo_fin}).
+					En este caso inicia desde la fase de <b>{selectedOrigen?.origen.replace(/-/g, ' ')}</b>{' '}
+					{selectedOrigen?.nivel_cronologico}({selectedOrigen?.periodo_inicio} - {selectedOrigen?.periodo_fin}) hasta{' '}
+					{lastOrigen?.origen.replace(/-/g, ' ')} {lastOrigen?.nivel_cronologico}({lastOrigen?.periodo_inicio} -{' '}
+					{lastOrigen?.periodo_fin}).
 				</p>
 			</div>
 
@@ -74,9 +75,10 @@ function Cronologia({ data }: CronologiaProps) {
 			</div>
 
 			<p className='text-white bg-black text-justify font-erode w-[90vw] md:w-[50vw] font-light font-tight mt-5 p-4'>
-				El sitio {selectedOrigen?.origen} de Real alto se divide en {data?.length} fases crono-culturales que se
-				encuentran representadas por niveles estratigráficos donde el nivel {lastOrigen?.nivel_cronologico} es el más
-				tardio y el más temprano es el nivel {selectedOrigen?.nivel_cronologico}.
+				El sitio {selectedOrigen?.origen.replace(/-/g, ' ')} de Real alto se divide en {data?.length} fases
+				crono-culturales que se encuentran representadas por niveles estratigráficos donde el nivel{' '}
+				{lastOrigen?.nivel_cronologico} es el más tardio y el más temprano es el nivel{' '}
+				{selectedOrigen?.nivel_cronologico}.
 			</p>
 		</div>
 	);

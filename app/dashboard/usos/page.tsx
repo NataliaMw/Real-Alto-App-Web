@@ -198,7 +198,7 @@ export default function DashboardUsos() {
 										<tr key={index}>
 											<td>{uso.id_uso}</td>
 											<td>
-												<Link href={'#'}>{uso.nombre_uso}</Link>
+												<Link href={'#'}>{uso.nombre_uso.replace(/-/g, ' ')}</Link>
 											</td>
 											<td>{uso.descripcion}</td>
 											<td>

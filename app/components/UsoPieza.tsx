@@ -30,7 +30,9 @@ function UsoPieza({ data }: UsoPiezaProps) {
 								key={index}
 								className='bg-black rounded-lg w-[40vw] md:w-[15vw] md:h-[20vh] space-y-2 flex flex-col justify-between overflow-hidden transform transition-transform duration-300 hover:scale-110'
 							>
-								<h3 className='font-erode text-white text-lg font-semibold text-center uppercase'>{uso?.nombre_uso}</h3>
+								<h3 className='font-erode text-white text-lg font-semibold text-center uppercase'>
+									{uso?.nombre_uso.replace(/-/g, ' ')}
+								</h3>
 								<Image
 									src={`/catalogo/${uso?.nombre_uso.toLowerCase()}.png`}
 									alt={uso?.nombre_uso}

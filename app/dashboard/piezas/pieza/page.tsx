@@ -533,8 +533,8 @@ export default function CreatePieza() {
 						>
 							{procedencias.map((procedencia: any) => (
 								<option key={procedencia.id_procedencia} value={procedencia.id_procedencia}>
-									{procedencia.origen} - {procedencia.nivel_cronologico} ({procedencia.periodo_inicio} -{' '}
-									{procedencia.periodo_fin})
+									{procedencia.origen.replace(/-/g, ' ')} - {procedencia.nivel_cronologico} (
+									{procedencia.periodo_inicio} - {procedencia.periodo_fin})
 								</option>
 							))}
 						</select>
@@ -549,7 +549,7 @@ export default function CreatePieza() {
 						>
 							{tipos.map((tipo: any) => (
 								<option key={tipo.id_tipo} value={tipo.id_tipo}>
-									{tipo.nombre_tipo}
+									{tipo.nombre_tipo.replace(/-/g, ' ')}
 								</option>
 							))}
 						</select>
@@ -564,7 +564,7 @@ export default function CreatePieza() {
 						>
 							{usos.map((uso: any) => (
 								<option key={uso.id_uso} value={uso.id_uso}>
-									{uso.nombre_uso}
+									{uso.nombre_uso.replace(/-/g, ' ')}
 								</option>
 							))}
 						</select>

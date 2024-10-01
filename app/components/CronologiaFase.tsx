@@ -75,10 +75,12 @@ function CronologiaFase({ currentSubFilter, procedencias, piezas, currentProcede
 												<Link href={getLink(indexPieza)}>
 													<img
 														src={pieza?.modelos[1]?.modelo_imagen?.path_archivo}
-														alt={pieza.nombre}
+														alt={pieza.nombre_pieza}
 														className='h-12 sm:h-24 lg:h-28 w-auto object-contain'
 													/>
-													<p className='text-white text-center text-lg font-erode'>{pieza.nombre_pieza}</p>
+													<p className='text-white text-center text-lg font-erode'>
+														{pieza.nombre_pieza.replace(/-/g, ' ').substr(0, 12)}
+													</p>
 												</Link>
 											) : null}
 										</div>

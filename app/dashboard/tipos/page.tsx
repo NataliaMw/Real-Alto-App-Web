@@ -198,7 +198,7 @@ export default function DashboardTipos() {
 										<tr key={index}>
 											<td>{tipo.id_tipo}</td>
 											<td>
-												<Link href={'#'}>{tipo.nombre_tipo}</Link>
+												<Link href={'#'}>{tipo.nombre_tipo.replace(/-/g, ' ')}</Link>
 											</td>
 											<td>{tipo.descripcion}</td>
 											<td>
