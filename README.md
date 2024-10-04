@@ -84,6 +84,13 @@ Para ejecutar este proyecto en tu computadora local, es necesario que tengas ins
      ```bash
      npm install
      ```
+   - **Nota**: En algunos casos, si el comando `npm install` no funciona y muestra errores relacionados con permisos, puedes intentar lo siguiente:
+     - En macOS y Linux, usa el comando `sudo` para dar permisos de administrador al proceso de instalación:
+       ```bash
+       sudo npm install
+       ```
+     - Esto te pedirá la contraseña de tu sistema, y luego continuará con la instalación de las dependencias.
+
 
 3. **Ejecutar el servidor de desarrollo**:
    - Para iniciar el servidor en modo de desarrollo, ejecuta el siguiente comando:
