@@ -29,6 +29,7 @@ const config: Config = {
 			fontFamily: {
 				erode: ['Erode', 'sans-serif'],
 				robotSlap: ['Robot Slap', 'sans-serif'],
+				inter: ['Inter', 'sans-serif'],
 			},
 
 			fontWeight: {

@@ -83,13 +83,32 @@ body {
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'Inter';
+	src: url('../app/fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('../app/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: italic;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+}
+
 .tableDashboard {
 	width: 100%;
 	align-items: center;
 	justify-content: center;
 	border: 1px solid #eaeaea;
 }
-.tableDashboard > thead > tr > th {
+
+.tableDashboard>thead>tr>th {
 	color: white !important;
 	font-weight: bold;
 	background-color: #334155;
@@ -97,17 +116,19 @@ body {
 	justify-content: center;
 	text-align: center !important;
 }
-.tableDashboard > tbody > tr:hover {
+
+.tableDashboard>tbody>tr:hover {
 	background-color: #f9f9f9;
 }
 
-.tableDashboard > tbody > tr {
+.tableDashboard>tbody>tr {
 	align-items: center !important;
 	justify-content: center !important;
 	text-align: center !important;
 }
-.tableDashboard > tbody > tr > td,
-.tableDashboard > thead > tr > th {
+
+.tableDashboard>tbody>tr>td,
+.tableDashboard>thead>tr>th {
 	padding: 1rem;
 	justify-content: center;
 	align-items: center;
@@ -116,7 +137,8 @@ body {
 
 .line-clamp {
 	display: -webkit-box;
-	-webkit-line-clamp: 2; /* number of lines to show */
+	-webkit-line-clamp: 2;
+	/* number of lines to show */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
